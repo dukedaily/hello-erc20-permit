@@ -2,6 +2,7 @@
 pragma solidity ^0.8;
 
 contract VerifySignature {
+    // 1. 对真正的内容进行哈希处理，私钥最终只对这个进行签名
     function getMessageHash(
         address _to,
         uint _amount,
@@ -11,6 +12,7 @@ contract VerifySignature {
         return keccak256(abi.encodePacked(_to, _amount, _message, _nonce));
     }
 
+    // 2. 对内容的哈希进行二次哈希，这个用于做verify处理
     function getEthSignedMessageHash(bytes32 _messageHash)
         public
         pure
@@ -18,10 +20,14 @@ contract VerifySignature {
     {
         return
             keccak256(
+                //这是标准字符串: \x19Ethereum Signed Message:\n
+                //32表示后面的哈希内容长度
                 abi.encodePacked("\x19Ethereum Signed Message:\n32", _messageHash)
             );
     }
 
+    // 3. 传入基础数据和签名，内部会计算出哈希值，并使用签名进行校验。
+    // 这个是最核心的方法，最终外部仅调用这个
     function verify(
         address _signer,
         address _to,

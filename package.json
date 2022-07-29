@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf cache artifacts",
+    "compile": "npx hardhat compile"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@nomiclabs/hardhat-web3": "^2.0.0",
     "@rari-capital/solmate": "^6.4.0",
-    "hardhat": "^2.9.7"
+    "hardhat": "^2.9.7",
+    "web3": "^1.7.4"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
