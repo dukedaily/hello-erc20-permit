@@ -26,9 +26,9 @@ describe("VerifySignature2 Top", () => {
         let ethMsgHash = ethers.utils.solidityKeccak256(
             ["string", "bytes32"], [prefix, msgHash]
         )
-        console.log('ethMsgHash:', ethMsgHash);
+        console.log('自己追加prefix后得到的hash，ethMsgHash:', ethMsgHash);
 
-        //2. 获取对msgHash的签名
+        //2. 获取对msgHash的签名，没有自动添加prefix
         const sig = await signer.signMessage(ethers.utils.arrayify(msgHash))
         console.log('signature:', sig);
 

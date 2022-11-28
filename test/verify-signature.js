@@ -17,15 +17,17 @@ describe("VerifySignature", function () {
         const message = "Hello"
         const nonce = 123
 
+        // 第一种测试：生成hash的过程，还是通过合约来计算生成的
         const hash = await contract.getMessageHash(to, amount, message, nonce)
+        const ethHash = await contract.getEthSignedMessageHash(hash)
 
         // signer签名的时候，仅对msgHash进行签名，不包括：\x19Ethereum Signed Message:\n32
         const sig = await signer.signMessage(ethers.utils.arrayify(hash))
 
-        const ethHash = await contract.getEthSignedMessageHash(hash)
-
         console.log("signer          ", signer.address)
         console.log("recovered signer", await contract.recoverSigner(ethHash, sig))
+
+        // 上面的几步，于下面的verify函数是相同的逻辑，只不过是我们手动一步一步调用的。
 
         // Correct signature and message returns true
         expect(

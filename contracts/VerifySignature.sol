@@ -36,7 +36,10 @@ contract VerifySignature {
         uint _nonce,
         bytes memory signature
     ) public pure returns (bool) {
+        // 第一次hash
         bytes32 messageHash = getMessageHash(_to, _amount, _message, _nonce);
+
+        // 第二次hash
         bytes32 ethSignedMessageHash = getEthSignedMessageHash(messageHash);
 
         return recoverSigner(ethSignedMessageHash, signature) == _signer;

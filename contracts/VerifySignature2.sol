@@ -17,6 +17,7 @@ contract VerifySignature2 {
     }
 
     // 我们要做的是：给定vrs，给定hash原始内容，解析出来这个vrs的签名者地址是谁
+    // 这个demo与no1的区别是，此处将多个步骤写在一起了，这也是在uniswap的展示形式
     function verify(
         address signer,
         uint256 tokenId,
